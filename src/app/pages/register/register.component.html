@@ -1,0 +1,12 @@
+<div class="form">
+    <form (ngSubmit)="onRegister()" class="register-form">
+      <input type="text" [(ngModel)]="registerObj.username" placeholder="Username" name="username" required />
+      <input type="password" [(ngModel)]="registerObj.password" placeholder="Password" name="password" required />
+      <button type="submit">Create</button>
+      <div *ngIf="errorMessages.length > 0">
+        <p *ngFor="let message of errorMessages" class="error-message">{{ message }}</p>
+      </div>
+      <p class="message">Already registered? <a (click)="redirectToLogin()">Sign In</a></p>
+    </form>
+  </div>
+  

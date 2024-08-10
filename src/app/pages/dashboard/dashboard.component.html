@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="header">
+        <h1>Hello {{ username }}</h1>
+    </div>
+
+    <button (click)="handleButtonClick()">Create request</button>
+
+    <div *ngIf="requests.length > 0; else noRequests">
+        <ul class="requests-list">
+            <li *ngFor="let request of requests" [ngClass]="getStatusClass(request.status)">
+                <div class="request-item">
+                    <strong>ID:</strong> {{ request.id }}
+                </div>
+                <div class="request-item">
+                    <strong>Date:</strong> {{ request.date | date:'short' }}
+                </div>
+                <div class="request-item">
+                    <strong>Type:</strong> {{ request.type }}
+                </div>
+                <div class="request-item">
+                    <strong>Message:</strong> {{ request.message }}
+                </div>
+                <div class="request-item">
+                    <strong>Status:</strong> <span [ngClass]="{'text-yellow': request.status === 'pateiktas', 'text-green': request.status === 'įvykdytas'}">{{ request.status }}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <ng-template #noRequests>
+        <p>No requests found.</p>
+    </ng-template>
+</div>
