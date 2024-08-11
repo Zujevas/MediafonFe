@@ -3,7 +3,44 @@
         <h1>Hello {{ username }}</h1>
     </div>
 
-    <button (click)="handleButtonClick()">Create request</button>
+<!-- Button to open modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#requestModal">
+    Create Request
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New Request</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="message-text" class="form-label">Message:</label>
+                        <textarea class="form-control" id="message-text" rows="3" [(ngModel)]="requestMessage" name="message" placeholder="Enter your message"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="request-type" class="form-label">Type:</label>
+                        <select class="form-select" id="request-type" [(ngModel)]="requestType" name="type">
+                            <option value="prašymas">Prašymas</option>
+                            <option value="pasiūlymas">Pasiūlymas</option>
+                            <option value="skundas">Skundas</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="createRequest()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Requests List -->
 
     <div *ngIf="requests.length > 0; else noRequests">
         <ul class="requests-list">

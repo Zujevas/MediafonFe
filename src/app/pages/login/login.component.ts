@@ -17,6 +17,8 @@ export class LoginComponent {
   loginObj: { email: string; password: string } = { email: '', password: '' };
   errorMessage: string | null = null; 
   tokenExpiryTimer: any;
+  private loginUrl = 'https://localhost:7192/login'; 
+  
 
   http = inject(HttpClient);
 
@@ -27,7 +29,7 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this.http.post<{ accessToken: string, expiresIn: number }>("https://localhost:7192/login", this.loginObj)
+    this.http.post<{ accessToken: string, expiresIn: number }>(this.loginUrl, this.loginObj)
       .pipe(
         catchError((error) => {
           this.handleError(error);

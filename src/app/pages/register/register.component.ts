@@ -16,6 +16,7 @@ import { throwError } from 'rxjs';
 export class RegisterComponent {
   registerObj: { username: string; password: string } = { username: '', password: '' };
   errorMessages: string[] = []; 
+  private registerUrl = 'https://localhost:7192/api/auth/register'; 
 
   http = inject(HttpClient);
 
@@ -26,30 +27,24 @@ export class RegisterComponent {
   }
 
   onRegister() {
-    this.http.post("https://localhost:7192/api/Auth/Register", this.registerObj)
+    this.http.post(this.registerUrl, this.registerObj)
       .pipe(
         catchError((error) => {
           this.handleError(error);
-          return throwError(() => new Error(error));
+          return throwError(() => new Error('Error during registration'));
         })
       )
       .subscribe({
         next: (res: any) => {
           if (res && res.isSuccessful) {
-            alert('Registration successful'); //remove later
             this.redirectToLogin();
-          } else {
-            this.errorMessages = res.errors || ["An unknown error occurred. Please try again later."];
           }
-        },
-        error: (err) => {
-          this.handleError(err);
         }
       });
   }
 
   private handleError(error: any) {
-    if (error.status === 400 && error.error && error.error.errors) {
+    if (error.error && error.error.errors) {
       this.errorMessages = error.error.errors;
     } else {
       this.errorMessages = ["An unknown error occurred. Please try again later."];

@@ -3,7 +3,7 @@
       <input type="text" [(ngModel)]="loginObj.email" placeholder="Username" name="email" required />
       <input type="password" [(ngModel)]="loginObj.password" placeholder="Password" name="password" required />
       <button type="submit">Login</button>
-      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p> <!-- Display error message if exists -->
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
       <p class="message">Not registered? <a (click)="redirectToRegister()">Create an account</a></p>
     </form>
   </div>
